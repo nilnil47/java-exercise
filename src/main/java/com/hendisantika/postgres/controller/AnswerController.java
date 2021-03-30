@@ -1,7 +1,9 @@
 package com.hendisantika.postgres.controller;
 
+import com.hendisantika.postgres.entity.Like;
 import com.hendisantika.postgres.entity.Tweet;
 import com.hendisantika.postgres.exception.ResourceNotFoundException;
+import com.hendisantika.postgres.repository.LikeRepository;
 import com.hendisantika.postgres.repository.TweetRepository;
 import com.hendisantika.postgres.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class AnswerController {
     private TweetRepository tweetRepository;
 
     @Autowired
+    private LikeRepository likeRepository;
+
+    @Autowired
     private QuestionRepository questionRepository;
 
     @GetMapping()
@@ -40,6 +45,18 @@ public class AnswerController {
     public Tweet addTweet(@Valid @RequestBody Tweet tweet) {
         tweetRepository.save(tweet);
         return tweet;
+    }
+
+    @PostMapping("/{postId}/likes")
+    public Like addLike(@PathVariable Long postId,
+                        @Valid @RequestBody Like likeRequest) {
+
+        if (tweetRepository.existsById(postId)) {
+            likeRequest.setPostId(postId);
+            likeRepository.save(likeRequest);
+            return likeRequest;
+        }
+        throw new ResourceNotFoundException("Tweet not found with id " + postId);
     }
 
     @PostMapping("/{questionId}/answers")

@@ -1,6 +1,6 @@
 package com.hendisantika.postgres.controller;
 
-import com.hendisantika.postgres.entity.Question;
+import com.hendisantika.postgres.entity.Like;
 import com.hendisantika.postgres.exception.ResourceNotFoundException;
 import com.hendisantika.postgres.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,35 +28,46 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
+
     @GetMapping
-    public Page<Question> getQuestions(Pageable pageable) {
+    public Page<Like> getQuestions(Pageable pageable) {
         return questionRepository.findAll(pageable);
     }
 
 
     @PostMapping
-    public Question createQuestion(@Valid @RequestBody Question question) {
-        return questionRepository.save(question);
+    public Like createQuestion(@Valid @RequestBody Like like) {
+        return questionRepository.save(like);
     }
 
-    @PutMapping("/{questionId}")
-    public Question updateQuestion(@PathVariable Long questionId,
-                                   @Valid @RequestBody Question questionRequest) {
-        return questionRepository.findById(questionId)
-                .map(question -> {
-                    question.setTitle(questionRequest.getTitle());
-                    question.setDescription(questionRequest.getDescription());
-                    return questionRepository.save(question);
-                }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
-    }
+//    @PutMapping("/{postId}/likes")
+//    public Like addLike(@PathVariable Long postId,
+//                               @Valid @RequestBody Like likeRequest) {
+//        // todo: add if post does not exist
+//        likeRequest.setPostId(postId);
+//        return questionRepository.findById(questionId)
+//                .map(like -> {
+//                    like.setTitle(likeRequest.getTitle());
+//                    like.setDescription(likeRequest.getDescription());
+//                    return questionRepository.save(like);
+//                }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
+//    }
 
 
     @DeleteMapping("/{questionId}")
     public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
         return questionRepository.findById(questionId)
-                .map(question -> {
-                    questionRepository.delete(question);
+                .map(like -> {
+                    questionRepository.delete(like);
                     return ResponseEntity.ok().build();
                 }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
     }
 }
+
+
+//return questionRepository.findById(questionId)
+//        .map(like -> {
+//        like.setTitle(likeRequest.getTitle());
+//        like.setDescription(likeRequest.getDescription());
+//        return questionRepository.save(like);
+//        }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));

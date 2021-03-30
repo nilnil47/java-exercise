@@ -17,14 +17,14 @@ import javax.validation.constraints.Size;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "questions")
+@Table(name = "Likes")
 @Data
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Question extends AuditModel {
+public class Like extends AuditModel {
     @Id
     @GeneratedValue(generator = "question_generator")
     @SequenceGenerator(
@@ -34,10 +34,7 @@ public class Question extends AuditModel {
     )
     private Long id;
 
-    @NotBlank
-    @Size(min = 3, max = 100)
-    private String title;
+    private Long postId;
 
-    @Column(columnDefinition = "text")
-    private String description;
+    private String username;
 }

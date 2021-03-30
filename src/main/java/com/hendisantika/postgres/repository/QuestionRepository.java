@@ -1,6 +1,6 @@
 package com.hendisantika.postgres.repository;
 
-import com.hendisantika.postgres.entity.Question;
+import com.hendisantika.postgres.entity.Like;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 18.52
  * To change this template use File | Settings | File Templates.
  */
-public interface QuestionRepository extends JpaRepository<Question, Long> {
+public interface QuestionRepository extends JpaRepository<Like, Long> {
 }
