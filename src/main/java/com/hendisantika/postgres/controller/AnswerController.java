@@ -37,15 +37,14 @@ public class AnswerController {
     }
 
     @PostMapping()
-    public Tweet addAnswer(@Valid @RequestBody Tweet tweet) {
-        Tweet t2 = new Tweet();
-        System.out.println(tweet);
+    public Tweet addTweet(@Valid @RequestBody Tweet tweet) {
+        tweetRepository.save(tweet);
         return tweet;
     }
 
     @PostMapping("/{questionId}/answers")
-    public Tweet addAnswer(@PathVariable Long questionId,
-                           @Valid @RequestBody Tweet tweet) {
+    public Tweet addTweet(@PathVariable Long questionId,
+                          @Valid @RequestBody Tweet tweet) {
         return questionRepository.findById(questionId)
                 .map(question -> {
 //                    tweet.setQuestion(question);

@@ -45,7 +45,8 @@ public class Tweet extends AuditModel {
     // fixme: i do not understand why @CreationTimestamp does not work
 //    @CreationTimestamp
 //    @Column(nullable = false, updatable = false)
-    private Date timestamp = new Date();
+    @Column(columnDefinition = "Long")
+    private Long timestamp = getTimestamp();
 
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "question_id", nullable = false)
