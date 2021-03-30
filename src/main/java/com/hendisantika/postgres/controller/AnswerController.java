@@ -32,7 +32,7 @@ public class AnswerController {
     private QuestionRepository questionRepository;
 
     @GetMapping("/tweets")
-    public List<Tweet> getAnswersByQuestionId(@PathVariable Long questionId) {
+    public List<Tweet> getAnswersByQuestionId() {
         return tweetRepository.findAll();
     }
 
