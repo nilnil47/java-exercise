@@ -2,10 +2,12 @@ package com.hendisantika.postgres.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,6 +41,11 @@ public class Tweet extends AuditModel {
     private String content;
 
     private String username;
+
+    // fixme: i do not understand why @CreationTimestamp does not work
+//    @CreationTimestamp
+//    @Column(nullable = false, updatable = false)
+    private Date timestamp = new Date();
 
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "question_id", nullable = false)

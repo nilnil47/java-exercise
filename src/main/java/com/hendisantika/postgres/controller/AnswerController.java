@@ -36,6 +36,13 @@ public class AnswerController {
         return tweetRepository.findAll();
     }
 
+    @PostMapping()
+    public Tweet addAnswer(@Valid @RequestBody Tweet tweet) {
+        Tweet t2 = new Tweet();
+        System.out.println(tweet);
+        return tweet;
+    }
+
     @PostMapping("/{questionId}/answers")
     public Tweet addAnswer(@PathVariable Long questionId,
                            @Valid @RequestBody Tweet tweet) {
