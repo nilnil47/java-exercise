@@ -22,7 +22,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @RestController
-@RequestMapping("questions")
+@RequestMapping("tweets")
 public class AnswerController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class AnswerController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    @GetMapping("/tweets")
+    @GetMapping()
     public List<Tweet> getAnswersByQuestionId() {
         return tweetRepository.findAll();
     }
