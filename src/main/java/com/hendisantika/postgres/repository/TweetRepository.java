@@ -1,6 +1,6 @@
 package com.hendisantika.postgres.repository;
 
-import com.hendisantika.postgres.entity.Answer;
+import com.hendisantika.postgres.entity.Tweet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,6 +15,6 @@ import java.util.List;
  * Time: 18.51
  * To change this template use File | Settings | File Templates.
  */
-public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    List<Answer> findByQuestionId(Long questionId);
+public interface TweetRepository extends JpaRepository<Tweet, Long> {
+//    List<Tweet> findByQuestionId(Long questionId);
 }

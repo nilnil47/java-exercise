@@ -36,7 +36,7 @@ __2. Get paginated Questions `GET /questions?page=0&size=2&sort=createdAt,desc`_
 
 __3. Create Answer `POST /questions/{questionId}/answers`__
 
-![Create Answer POST /questions/{questionId}/answers](img/answer.png "Create Answer POST /questions/{questionId}/answers")
+![Create Answer POST /questions/{questionId}/answers](img/tweet.png "Create Answer POST /questions/{questionId}/answers")
 
 __4. Get all answers of a Question `GET /questions/{questionId}/answers`__
 

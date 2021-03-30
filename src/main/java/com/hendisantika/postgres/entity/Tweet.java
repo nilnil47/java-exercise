@@ -18,14 +18,14 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "answers")
+@Table(name = "Tweets")
 @Data
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Answer extends AuditModel {
+public class Tweet extends AuditModel {
     @Id
     @GeneratedValue(generator = "answer_generator")
     @SequenceGenerator(
@@ -36,11 +36,13 @@ public class Answer extends AuditModel {
     private Long id;
 
     @Column(columnDefinition = "text")
-    private String text;
+    private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Question question;
+    private String username;
+
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "question_id", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @JsonIgnore
+//    private Question question;
 }

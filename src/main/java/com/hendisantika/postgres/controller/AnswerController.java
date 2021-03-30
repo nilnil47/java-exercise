@@ -1,8 +1,8 @@
 package com.hendisantika.postgres.controller;
 
-import com.hendisantika.postgres.entity.Answer;
+import com.hendisantika.postgres.entity.Tweet;
 import com.hendisantika.postgres.exception.ResourceNotFoundException;
-import com.hendisantika.postgres.repository.AnswerRepository;
+import com.hendisantika.postgres.repository.TweetRepository;
 import com.hendisantika.postgres.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,38 +26,38 @@ import java.util.List;
 public class AnswerController {
 
     @Autowired
-    private AnswerRepository answerRepository;
+    private TweetRepository tweetRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
 
-    @GetMapping("/{questionId}/answers")
-    public List<Answer> getAnswersByQuestionId(@PathVariable Long questionId) {
-        return answerRepository.findByQuestionId(questionId);
+    @GetMapping("/tweets")
+    public List<Tweet> getAnswersByQuestionId(@PathVariable Long questionId) {
+        return tweetRepository.findAll();
     }
 
     @PostMapping("/{questionId}/answers")
-    public Answer addAnswer(@PathVariable Long questionId,
-                            @Valid @RequestBody Answer answer) {
+    public Tweet addAnswer(@PathVariable Long questionId,
+                           @Valid @RequestBody Tweet tweet) {
         return questionRepository.findById(questionId)
                 .map(question -> {
-                    answer.setQuestion(question);
-                    return answerRepository.save(answer);
+//                    tweet.setQuestion(question);
+                    return tweetRepository.save(tweet);
                 }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
     }
 
     @PutMapping("/{questionId}/answers/{answerId}")
-    public Answer updateAnswer(@PathVariable Long questionId,
-                               @PathVariable Long answerId,
-                               @Valid @RequestBody Answer answerRequest) {
+    public Tweet updateAnswer(@PathVariable Long questionId,
+                              @PathVariable Long answerId,
+                              @Valid @RequestBody Tweet tweetRequest) {
         if (!questionRepository.existsById(questionId)) {
             throw new ResourceNotFoundException("Question not found with id " + questionId);
         }
 
-        return answerRepository.findById(answerId)
-                .map(answer -> {
-                    answer.setText(answerRequest.getText());
-                    return answerRepository.save(answer);
+        return tweetRepository.findById(answerId)
+                .map(tweet -> {
+//                    tweet.setText(tweetRequest.getText());
+                    return tweetRepository.save(tweet);
                 }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
     }
 
@@ -68,9 +68,9 @@ public class AnswerController {
             throw new ResourceNotFoundException("Question not found with id " + questionId);
         }
 
-        return answerRepository.findById(answerId)
-                .map(answer -> {
-                    answerRepository.delete(answer);
+        return tweetRepository.findById(answerId)
+                .map(tweet -> {
+                    tweetRepository.delete(tweet);
                     return ResponseEntity.ok().build();
                 }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
 
