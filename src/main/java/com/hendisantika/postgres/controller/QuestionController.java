@@ -2,7 +2,7 @@ package com.hendisantika.postgres.controller;
 
 import com.hendisantika.postgres.entity.Like;
 import com.hendisantika.postgres.exception.ResourceNotFoundException;
-import com.hendisantika.postgres.repository.QuestionRepository;
+import com.hendisantika.postgres.repository.ReTweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,19 +26,19 @@ import javax.validation.Valid;
 public class QuestionController {
 
     @Autowired
-    private QuestionRepository questionRepository;
+    private ReTweetRepository reTweetRepository;
 
 
-    @GetMapping
-    public Page<Like> getQuestions(Pageable pageable) {
-        return questionRepository.findAll(pageable);
-    }
+//    @GetMapping
+//    public Page<Like> getQuestions(Pageable pageable) {
+//        return reTweetRepository.findAll(pageable);
+//    }
 
 
-    @PostMapping
-    public Like createQuestion(@Valid @RequestBody Like like) {
-        return questionRepository.save(like);
-    }
+//    @PostMapping
+//    public Like createQuestion(@Valid @RequestBody Like like) {
+//        return reTweetRepository.save(like);
+//    }
 
 //    @PutMapping("/{postId}/likes")
 //    public Like addLike(@PathVariable Long postId,
@@ -56,9 +56,9 @@ public class QuestionController {
 
     @DeleteMapping("/{questionId}")
     public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
-        return questionRepository.findById(questionId)
+        return reTweetRepository.findById(questionId)
                 .map(like -> {
-                    questionRepository.delete(like);
+                    reTweetRepository.delete(like);
                     return ResponseEntity.ok().build();
                 }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
     }
