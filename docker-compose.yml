@@ -19,7 +19,7 @@ services:
   java-rest:
     build: .
     container_name: java-rest
-    image: 600c3d289c17
+    image: java-rest
     entrypoint: bash entrypoint.sh
     depends_on:
       - postgres
