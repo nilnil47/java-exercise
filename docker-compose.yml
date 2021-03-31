@@ -7,6 +7,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: db
       PGDATA: /data/postgres
     volumes:
        - postgres:/data/postgres
@@ -17,16 +18,27 @@ services:
     restart: unless-stopped
   java-rest:
     build: .
-    links:
-      - "postgres:localhost"
     container_name: java-rest
-    image: java-rest
+    image: 600c3d289c17
+    entrypoint: bash entrypoint.sh
+    depends_on:
+      - postgres
     environment:
       DB_NAME: db
       DB_HOST: postgres
       DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: changeme
+
+      # this is the db password
+      PGPASSWORD: changeme
     ports:
       - "80:8080"
+    networks:
+      - postgres
+    volumes:
+      - ./entrypoint.sh:/app/entrypoint.sh
+#    - target/spring-boot-postgresql-0.0.1-SNAPSHOT.jar:/app/target/spring-boot-postgresql-0.0.1-SNAPSHOT.jar
 
 networks:
   postgres:
