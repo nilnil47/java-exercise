@@ -49,7 +49,7 @@ public class TweetController {
         return tweets;
     }
 
-    @GetMapping("tweets/retweets")
+    @GetMapping("retweets")
     public List<ReTweet> getReTweets() {
         List<ReTweet> retweets = reTweetRepository.findAll();
         retweets.forEach(reTweet ->
@@ -64,7 +64,7 @@ public class TweetController {
         return retweets;
     }
 
-    @PostMapping    ("tweets")
+    @PostMapping("tweets")
     public Tweet addTweet(@Valid @RequestBody Tweet tweet) {
         tweetRepository.save(tweet);
         return tweet;
