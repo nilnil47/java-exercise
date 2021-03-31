@@ -15,6 +15,13 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+  java-rest:
+    container_name: java-rest
+    image: java-rest
+    environment:
+      DB_NAME: db
+    ports:
+      - "80:8080"
 
 networks:
   postgres:
@@ -22,4 +29,3 @@ networks:
 
 volumes:
     postgres:
-    pgadmin:
