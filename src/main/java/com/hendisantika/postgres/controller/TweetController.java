@@ -26,7 +26,6 @@ import java.util.Optional;
  * To change this template use File | Settings | File Templates.
  */
 @RestController
-@RequestMapping("tweets")
 public class TweetController {
 
     @Autowired
@@ -38,7 +37,7 @@ public class TweetController {
     @Autowired
     private ReTweetRepository reTweetRepository;
 
-    @GetMapping()
+    @GetMapping("tweets")
     public List<Tweet> getTweets() {
         List<Tweet> tweets = tweetRepository.findAll();
         tweets.forEach(tweet ->
@@ -50,7 +49,7 @@ public class TweetController {
         return tweets;
     }
 
-    @GetMapping("retweets")
+    @GetMapping("tweets/retweets")
     public List<ReTweet> getReTweets() {
         List<ReTweet> retweets = reTweetRepository.findAll();
         retweets.forEach(reTweet ->
@@ -65,13 +64,13 @@ public class TweetController {
         return retweets;
     }
 
-    @PostMapping()
+    @PostMapping    ("tweets")
     public Tweet addTweet(@Valid @RequestBody Tweet tweet) {
         tweetRepository.save(tweet);
         return tweet;
     }
 
-    @PostMapping("/{postId}/likes")
+    @PostMapping("tweets/{postId}/likes")
     public Like addLike(@PathVariable Long postId,
                         @Valid @RequestBody Like likeRequest) {
 
@@ -83,7 +82,7 @@ public class TweetController {
         throw new ResourceNotFoundException("Tweet not found with id " + postId);
     }
 
-    @PostMapping("/{postId}/retweet")
+    @PostMapping("tweets/{postId}/retweet")
     public ReTweet addReTweet(@PathVariable Long postId,
                               @Valid @RequestBody ReTweet reTweet) {
 
