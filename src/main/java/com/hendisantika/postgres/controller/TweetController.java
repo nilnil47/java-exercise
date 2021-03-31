@@ -5,8 +5,8 @@ import com.hendisantika.postgres.entity.ReTweet;
 import com.hendisantika.postgres.entity.Tweet;
 import com.hendisantika.postgres.exception.ResourceNotFoundException;
 import com.hendisantika.postgres.repository.LikeRepository;
-import com.hendisantika.postgres.repository.TweetRepository;
 import com.hendisantika.postgres.repository.ReTweetRepository;
+import com.hendisantika.postgres.repository.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,22 +63,7 @@ public class TweetController {
                 }
         );
         return retweets;
-    };
-
-//    @GetMapping("retweets")
-//    public List<ReTweet> getReTweets() {
-//        return reTweetRepository.findAll().stream().map(
-//                reTweet -> {
-//                    Optional<Tweet> tweet = tweetRepository.findById(reTweet.getId());
-//                    tweet.ifPresent(val -> {
-//                        String content = val.getContent();
-//                        reTweet.setContent(content);
-//                    });
-//                }
-//        );
-//    }
-
-
+    }
 
     @PostMapping()
     public Tweet addTweet(@Valid @RequestBody Tweet tweet) {
@@ -100,7 +85,7 @@ public class TweetController {
 
     @PostMapping("/{postId}/retweet")
     public ReTweet addReTweet(@PathVariable Long postId,
-                        @Valid @RequestBody ReTweet reTweet) {
+                              @Valid @RequestBody ReTweet reTweet) {
 
         if (tweetRepository.existsById(postId)) {
             reTweet.setPostId(postId);
@@ -108,48 +93,5 @@ public class TweetController {
             return reTweet;
         }
         throw new ResourceNotFoundException("Tweet not found with id " + postId);
-    }
-
-
-
-
-//    @PostMapping("/{questionId}/answers")
-//    public Tweet addTweet(@PathVariable Long questionId,
-//                          @Valid @RequestBody Tweet tweet) {
-//        return reTweetRepository.findById(questionId)
-//                .map(question -> {
-////                    tweet.setQuestion(question);
-//                    return tweetRepository.save(tweet);
-//                }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
-//    }
-
-    @PutMapping("/{questionId}/answers/{answerId}")
-    public Tweet updateAnswer(@PathVariable Long questionId,
-                              @PathVariable Long answerId,
-                              @Valid @RequestBody Tweet tweetRequest) {
-        if (!reTweetRepository.existsById(questionId)) {
-            throw new ResourceNotFoundException("Question not found with id " + questionId);
-        }
-
-        return tweetRepository.findById(answerId)
-                .map(tweet -> {
-//                    tweet.setText(tweetRequest.getText());
-                    return tweetRepository.save(tweet);
-                }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
-    }
-
-    @DeleteMapping("/{questionId}/answers/{answerId}")
-    public ResponseEntity<?> deleteAnswer(@PathVariable Long questionId,
-                                          @PathVariable Long answerId) {
-        if (!reTweetRepository.existsById(questionId)) {
-            throw new ResourceNotFoundException("Question not found with id " + questionId);
-        }
-
-        return tweetRepository.findById(answerId)
-                .map(tweet -> {
-                    tweetRepository.delete(tweet);
-                    return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
-
     }
 }

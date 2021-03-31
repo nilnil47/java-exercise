@@ -16,5 +16,4 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
-//    List<Tweet> findByQuestionId(Long questionId);
 }
