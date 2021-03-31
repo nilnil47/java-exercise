@@ -16,10 +16,15 @@ services:
       - postgres
     restart: unless-stopped
   java-rest:
+    build: .
+    links:
+      - "postgres:localhost"
     container_name: java-rest
     image: java-rest
     environment:
       DB_NAME: db
+      DB_HOST: postgres
+      DB_PORT: 5432
     ports:
       - "80:8080"
 
