@@ -41,16 +41,4 @@ public class Tweet extends AuditModel {
     private String content;
 
     private String username;
-
-    // fixme: i do not understand why @CreationTimestamp does not work
-//    @CreationTimestamp
-//    @Column(nullable = false, updatable = false)
-    @Column(columnDefinition = "Long")
-    private Long timestamp = getTimestamp();
-
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "question_id", nullable = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonIgnore
-//    private Question question;
 }

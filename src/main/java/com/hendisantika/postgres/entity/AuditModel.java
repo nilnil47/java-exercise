@@ -34,14 +34,10 @@ import java.util.Date;
 @Setter
 @ToString
 public abstract class AuditModel implements Serializable {
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @CreatedDate
-    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", nullable = false)
-    @LastModifiedDate
-    private Date updatedAt;
+    @Column(nullable = false, updatable = false)
+    @CreatedDate
+    private Date timestamp;
 
 }
