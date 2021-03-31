@@ -41,4 +41,10 @@ public class Tweet extends AuditModel {
     private String content;
 
     private String username;
+
+    @Transient
+    private int likeCount;
+
+    @Transient
+    private int reTweetsCount;
 }

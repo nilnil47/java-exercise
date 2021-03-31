@@ -39,8 +39,15 @@ public class TweetController {
     private ReTweetRepository reTweetRepository;
 
     @GetMapping()
-    public List<Tweet> getAnswersByQuestionId() {
-        return tweetRepository.findAll();
+    public List<Tweet> getTweets() {
+        List<Tweet> tweets = tweetRepository.findAll();
+        tweets.forEach(tweet ->
+                {
+                    tweet.setLikeCount(likeRepository.countByPostId(tweet.getId()));
+                    tweet.setReTweetsCount(reTweetRepository.countByPostId(tweet.getId()));
+                }
+        );
+        return tweets;
     }
 
     @GetMapping("retweets")
