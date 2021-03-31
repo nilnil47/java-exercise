@@ -29,10 +29,10 @@ import java.util.Date;
 @ToString
 public class Tweet extends AuditModel {
     @Id
-    @GeneratedValue(generator = "answer_generator")
+    @GeneratedValue(generator = "tweet_generator")
     @SequenceGenerator(
-            name = "answer_generator",
-            sequenceName = "answer_sequence",
+            name = "tweet_generator",
+            sequenceName = "tweet_sequence",
             initialValue = 1000
     )
     private Long id;

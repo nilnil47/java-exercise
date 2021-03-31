@@ -26,10 +26,10 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class Like extends AuditModel {
     @Id
-    @GeneratedValue(generator = "question_generator")
+    @GeneratedValue(generator = "like_generator")
     @SequenceGenerator(
-            name = "question_generator",
-            sequenceName = "question_sequence",
+            name = "like_generator",
+            sequenceName = "like_sequence",
             initialValue = 1000
     )
     private Long id;

@@ -58,6 +58,7 @@ public class TweetController {
                     tweet.ifPresent(val -> {
                         String content = val.getContent();
                         reTweet.setContent(content);
+                        reTweet.setTweetUser(val.getUsername());
                     });
                 }
         );

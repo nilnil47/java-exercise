@@ -1,5 +1,7 @@
 package com.hendisantika.postgres.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,14 +28,21 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class ReTweet extends AuditModel {
     @Id
-    @GeneratedValue(generator = "question_generator")
+    @GeneratedValue(generator = "retweet_generator")
     @SequenceGenerator(
-            name = "question_generator",
-            sequenceName = "question_sequence",
+            name = "retweet_generator",
+            sequenceName = "retweet_sequence",
             initialValue = 1000
     )
+
+    @JsonIgnore
     private Long id;
 
+    @JsonProperty("tweet_user")
+    @Transient
+    private String tweetUser;
+
+    @JsonProperty("tweet_id")
     private Long postId;
 
     private String username;
